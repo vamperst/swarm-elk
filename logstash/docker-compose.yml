@@ -7,6 +7,8 @@ services:
     environment:
       ES_JAVA_OPTS: -Xms1g -Xmx1g
     image: elasticsearch:5
+    ports:
+      - "9200:9200"
     ulimits:
       memlock: -1
       nofile:
@@ -20,7 +22,6 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-      endpoint_mode: dnsrr
   kibana:
     image: kibana:latest
     ports:
@@ -39,6 +40,8 @@ services:
   logstash:
     image: ahromis/logstash:5.5.1-alpine
     hostname: logstash
+    ports:
+      - "5000:5000"
     networks:
       - elk
     deploy:

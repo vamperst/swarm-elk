@@ -5,15 +5,15 @@ services:
   elasticsearch:
     command: elasticsearch -Enetwork.host=0.0.0.0 -Ediscovery.zen.ping.unicast.hosts=elasticsearch
     environment:
-      ES_JAVA_OPTS: -Xms1g -Xmx1g
+      ES_JAVA_OPTS: -Xms4g -Xmx4g
     image: elasticsearch:5
     ports:
       - "9200:9200"
     ulimits:
       memlock: -1
       nofile:
-        hard: 65536
-        soft: 65536
+        hard: 262144
+        soft: 262144
       nproc: 65538
     volumes:
       - /usr/share/elasticsearch/data

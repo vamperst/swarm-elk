@@ -9,6 +9,12 @@ services:
     image: elasticsearch:5
     ports:
       - "9200:9200"
+    ulimits:
+      memlock: -1
+      nofile:
+        hard: 65536
+        soft: 65536
+      nproc: 65538
     volumes:
       - /usr/share/elasticsearch/data
     networks:

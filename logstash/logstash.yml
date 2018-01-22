@@ -1,0 +1,11 @@
+input {
+   beats {
+     type => beats
+     port => 5000
+   }
+}
+output {
+  elasticsearch {
+    hosts => ["elasticsearch"]
+  }
+}

@@ -45,6 +45,8 @@ services:
         - "5044:5044/tcp"
         - "5044:5044/udp"
         - "12201:12201/udp"
+    volumes:
+      - $(pwd)/logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
     networks:
       - elk
     deploy:

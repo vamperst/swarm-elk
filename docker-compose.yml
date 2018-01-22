@@ -39,7 +39,7 @@ services:
       retries: 3
   logstash:
     hostname: logstash
-    command: sh -c "logstash -e 'input { beats { port => 5044 } } output { elasticsearch { hosts => "elasticsearch:9200"} } '"
+    command: sh -c "logstash -e 'input { beats { port => 5044 } } output { elasticsearch { hosts => \"elasticsearch:9200\"} } '"
     image: logstash:alpine
     ports:
         - "5044:5044/tcp"
@@ -49,7 +49,7 @@ services:
       - elk
     deploy:
       mode: replicated
-      replicas: 2
+      replicas: 1
 
 networks:
   elk:

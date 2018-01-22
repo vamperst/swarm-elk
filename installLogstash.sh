@@ -15,5 +15,5 @@ sudo apt-get update -y
 sudo apt-get install logstash -y
 
 sudo cp logstash/logstash.yml /usr/share/logstash/config/logstash.yml
-service logstash restart
+sudo service logstash restart
 

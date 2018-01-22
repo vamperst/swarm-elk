@@ -37,21 +37,6 @@ services:
       test: wget -qO- http://localhost:5601 > /dev/null
       interval: 30s
       retries: 3
-  logstash:
-    hostname: logstash
-    command: sh -c "logstash -e 'input { beats { port => 5044 } } output { elasticsearch { hosts => \"elasticsearch:9200\"} } '"
-    image: docker.elastic.co/logstash/logstash:6.1.2
-    ports:
-        - "5044:5044/tcp"
-        - "5044:5044/udp"
-        - "12201:12201/udp"
-    volumes:
-      - ./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
-    networks:
-      - elk
-    deploy:
-      mode: replicated
-      replicas: 1
 
 networks:
   elk:

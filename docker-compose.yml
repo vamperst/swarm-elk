@@ -40,7 +40,7 @@ services:
   logstash:
     hostname: logstash
     command: sh -c "logstash -e 'input { beats { port => 5044 } } output { elasticsearch { hosts => \"elasticsearch:9200\"} } '"
-    image: logstash:alpine
+    image: docker.elastic.co/logstash/logstash:6.1.2
     ports:
         - "5044:5044/tcp"
         - "5044:5044/udp"

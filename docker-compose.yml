@@ -22,7 +22,6 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-      endpoint_mode: dnsrr
   kibana:
     image: docker.elastic.co/kibana/kibana:6.1.2
     ports:

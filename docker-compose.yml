@@ -7,6 +7,8 @@ services:
     environment:
       ES_JAVA_OPTS: -Xms2g -Xmx2g
     image: docker.elastic.co/elasticsearch/elasticsearch:6.1.2
+    ports:
+      - "9200:9200"
     ulimits:
       memlock: -1
       nofile:
@@ -38,11 +40,11 @@ services:
       retries: 3
   logstash:
     hostname: logstash
-    command: sh -c "logstash -e 'input { beats  { port => 5044   } gelf { } } output { stdout { codec => rubydebug } elasticsearch { hosts => [ \"elasticsearch\" ] } }'"
-    image: docker.elastic.co/logstash/logstash:6.1.2
+    command: sh -c "logstash -e 'input { beats { port => 5044 } } output { elasticsearch { hosts => "elasticsearch:9200"} } '"
+    image: logstash:alpine
     ports:
-        - "10514:5044/tcp"
-        - "10514:5044/udp"
+        - "5044:5044/tcp"
+        - "5044:5044/udp"
         - "12201:12201/udp"
     networks:
       - elk

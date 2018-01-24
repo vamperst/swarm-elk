@@ -14,6 +14,7 @@ echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee 
 sudo apt-get update -y 
 sudo apt-get install logstash -y
 
-sudo cp logstash/logstash.yml /usr/share/logstash/config/logstash.yml
+sudo mkdir -v /usr/share/logstash/conf.d/
+sudo cp logstash/logstash.yml /usr/share/logstash/conf.d/beats.yml
 sudo service logstash restart
 

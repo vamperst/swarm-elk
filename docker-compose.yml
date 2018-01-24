@@ -6,15 +6,15 @@ services:
     command: elasticsearch -Enetwork.host=0.0.0.0 -Ediscovery.zen.ping.unicast.hosts=elasticsearch
     environment:
       ES_JAVA_OPTS: -Xms2g -Xmx2g
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.2
-    ports:
-      - "9200:9200"
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.0.1
     ulimits:
       memlock: -1
       nofile:
         hard: 65536
         soft: 65536
       nproc: 65538
+    ports:
+      - "9200:9200"
     volumes:
       - /usr/share/elasticsearch/data
     networks:
@@ -23,22 +23,33 @@ services:
       mode: replicated
       replicas: 1
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.1.2
+    image: docker.elastic.co/kibana/kibana:6.0.1
     ports:
       - "5601:5601"
     environment:
-      SERVER_HOST: 0.0.0.0
-      SERVER_PORT: 5601
       ELASTICSEARCH_URL: http://elasticsearch:9200
     networks:
       - elk
     deploy:
       mode: replicated
       replicas: 1
-    healthcheck:
-      test: wget -qO- http://localhost:5601 > /dev/null
-      interval: 30s
-      retries: 3
+  logstash:
+    hostname: logstash
+    image: docker.elastic.co/logstash/logstash:6.0.1
+    ports:
+        - "10514:10514/tcp"
+        - "10514:10514/udp"
+        - "5000:5000/tcp"
+        - "5000:5000/udp"
+        - "12201:12201/udp"
+    volumes:
+        - logstash/logstash.yml: /usr/share/logstash/pipeline/pipeline.conf
+        - logstash/logstash.yml: /usr/share/logstash/config/pipeline.conf
+    networks:
+      - elk
+    deploy:
+      mode: replicated
+      replicas: 2
 
 networks:
   elk:

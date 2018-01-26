@@ -42,9 +42,6 @@ services:
         - "5000:5000/tcp"
         - "5000:5000/udp"
         - "12201:12201/udp"
-    volumes:
-        - logstash/logstash.yml: /usr/share/logstash/pipeline/pipeline.conf
-        - logstash/logstash.yml: /usr/share/logstash/config/pipeline.conf
     networks:
       - elk
     deploy:

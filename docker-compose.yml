@@ -13,6 +13,7 @@ services:
         hard: 65536
         soft: 65536
       nproc: 65538
+    restart: always
     ports:
       - "9200:9200"
     volumes:
@@ -26,6 +27,7 @@ services:
     image: docker.elastic.co/kibana/kibana:6.0.1
     ports:
       - "5601:5601"
+    restart: always
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
     networks:
@@ -44,6 +46,7 @@ services:
         - "12201:12201/udp"
     networks:
       - elk
+    restart: always
     deploy:
       mode: replicated
       replicas: 2
